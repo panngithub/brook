@@ -164,6 +164,7 @@ Service_brook(){
 }
 Installation_dependency(){
     \cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+    apt install dnsutils -y
 }
 Read_config(){
     [[ ! -e ${brook_conf} ]] && echo -e "${Error} Brook 配置文件不存在 !" && exit 1
@@ -703,7 +704,7 @@ Set_iptables(){
     fi
 }
 Resolve_Hostname_To_IP(){
-    ip=`dig +short $bk_domain_pf`
+    ip=`dig +short $bk_domain_pf | tail -n1`
     if [ -n "$ip" ]; then
         echo -e " IP: $ip"
     else
